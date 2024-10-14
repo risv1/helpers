@@ -31,29 +31,34 @@
   <script setup>
   const features = [
     {
-      name: "Remove Background",
-      icon: "uil:image-edit",
-      description: "Easily remove backgrounds from images with our advanced AI-powered tool."
-    },
-    {
       name: "Save Links",
       icon: "uil:link",
       description: "Organize and save your important article and video links in one convenient place."
     },
     {
-      name: "Text Summarizer",
-      icon: "uil:text",
-      description: "Get quick summaries of long articles or documents to save time and improve comprehension."
+      name: "File Converter",
+      icon: "uil:file-alt",
+      description: "Convert files between various formats (PDF, DOCX, XLSX, etc.) without leaving your browser."
     },
     {
-      name: "Code Snippet Manager",
-      icon: "uil:brackets-curly",
-      description: "Store and organize your frequently used code snippets for easy access and reuse."
+      name: "QR Code Generator",
+      icon: "uil:qrcode-scan",
+      description: "Generate QR codes for links, text, or contact information in just a few clicks."
     },
     {
-      name: "Quick Notes",
-      icon: "uil:notes",
-      description: "Jot down ideas, to-dos, or any important information with our simple note-taking tool."
+      name: "Color Palette Generator",
+      icon: "uil:palette",
+      description: "Create harmonious color schemes for your design projects with our intuitive tool."
+    },
+    {
+      name: "Remove Background",
+      icon: "uil:image-edit",
+      description: "Easily remove backgrounds from images."
+    },
+    {
+      name: "Markdown Editor",
+      icon: "bi:markdown-fill",
+      description: "Write and preview Markdown with a user-friendly editor, perfect for documentation and note-taking."
     }
   ];
   </script>
