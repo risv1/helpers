@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   srcDir: 'app',
   modules: [
     '@nuxtjs/tailwindcss',
+    'nuxt-icon'
   ],
   css: [
     './app/app.css',
