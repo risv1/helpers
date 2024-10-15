@@ -57,7 +57,6 @@ export const loginHandler = async (event) => {
     const token = await generateToken(user.id)
 
     setCookie(event, "token", token, {
-        httpOnly: true,
         secure: true,
         sameSite: "strict",
         maxAge: 3600,

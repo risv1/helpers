@@ -1,5 +1,9 @@
 <script setup lang="ts">
 
+definePageMeta({
+  middleware: ['auth']
+})
+
 const nameRef = ref<string>('')
 const emailRef = ref<string>('')
 const passwordRef = ref<string>('')

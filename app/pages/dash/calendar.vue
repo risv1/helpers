@@ -1,3 +1,29 @@
+<script setup lang="ts">
+
+definePageMeta({
+  middleware: ['auth']
+})
+
+const {
+    daysOfWeek,
+    currentWeek,
+    currentMonthYear,
+    previousWeek,
+    nextWeek,
+    formatDate,
+    isCurrentDay,
+    getTasksForDay,
+    getTaskDuration
+} = useDate()
+
+const {
+    tasks,
+    newTask,
+    addTask
+} = useTasks()
+
+</script>
+
 <template>
     <div class="w-screen h-screen max-w-7xl mx-auto bg-neutral-950 text-gray-300 p-8">
         <h1 class="text-3xl font-bold mb-6 text-green-300">Calendar</h1>
@@ -21,7 +47,7 @@
                     {{ formatDate(day) }}
                 </div>
                 <div class="mt-8 px-2">
-                    <div v-for="task in getTasksForDay(day)" :key="task.id"
+                    <div v-for="task in getTasksForDay(day, tasks)" :key="task.id"
                         :class="['p-2 mb-2 rounded text-sm', { 'bg-green-800': isCurrentDay(day) }]"
                         :style="{ gridColumn: `span ${getTaskDuration(task)}` }">
                         {{ task.title }}
@@ -32,64 +58,3 @@
         <AddTask :newTask="newTask" :addTask="addTask" />
     </div>
 </template>
-
-<script setup lang="ts">
-import { format, addDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns'
-
-type Task = {
-    id: number;
-    title: string;
-    start: Date;
-    end: Date;
-}
-
-const currentDate = ref(new Date())
-const tasks = ref<Task[]>([])
-const newTask = ref({ title: '', start: '', end: '' })
-
-const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-
-const currentWeek = computed(() => {
-    const start = startOfWeek(currentDate.value)
-    const end = endOfWeek(currentDate.value)
-    return eachDayOfInterval({ start, end })
-})
-
-const currentMonthYear = computed(() => format(currentDate.value, 'MMMM yyyy'))
-
-const previousWeek = () => {
-    currentDate.value = addDays(currentDate.value, -7)
-}
-
-const nextWeek = () => {
-    currentDate.value = addDays(currentDate.value, 7)
-}
-
-const formatDate = (date: Date) => format(date, 'd')
-
-const isCurrentDay = (date: Date) => isSameDay(date, new Date())
-
-const getTasksForDay = (day: Date) => {
-    return tasks.value.filter(task =>
-        isSameDay(day, task.start) ||
-        (day >= task.start && day <= task.end)
-    )
-}
-
-const addTask = () => {
-    const task: Task = {
-        id: Date.now(),
-        title: newTask.value.title,
-        start: new Date(newTask.value.start),
-        end: new Date(newTask.value.end)
-    }
-    tasks.value.push(task)
-    newTask.value = { title: '', start: '', end: '' }
-}
-
-const getTaskDuration = (task: Task) => {
-    const start = startOfWeek(task.start)
-    const end = endOfWeek(task.end)
-    return eachDayOfInterval({ start: task.start, end: task.end }).length
-}
-</script>
