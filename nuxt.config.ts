@@ -4,11 +4,15 @@ export default defineNuxtConfig({
   srcDir: 'app',
   modules: [
     '@nuxtjs/tailwindcss',
-    'nuxt-icon'
+    '@nuxt/icon'
   ],
-  css: [
-    './app/app.css',
-  ],
+  runtimeConfig: {
+    public: {
+      jwtSecret: process.env.JWT_SECRET,
+      dbUrl: process.env.DB_URL,
+      expireTime: process.env.EXPIRE_TIME
+    }
+  },
   tailwindcss: {
     config: {
       theme: {
