@@ -8,6 +8,7 @@
         </p>
         <section class="flex flex-row gap-3 text-gray-400">
             <NuxtLink to="/about" class="text-lg font-semibold hover:text-green-300 hover:underline">About</NuxtLink>
+            <NuxtLink to="/utils" class="text-lg font-semibold hover:text-green-300 hover:underline">Utils</NuxtLink>
             <a href="https://github.com/risv1/helpers" target="_blank" class="text-lg font-semibold hover:text-green-300 hover:underline">GitHub</a>
         </section>
     </main>
