@@ -1,10 +1,15 @@
 <script setup lang="ts">
 
+definePageMeta({
+  middleware: ['auth']
+})
+
 const nameRef = ref<string>('')
 const emailRef = ref<string>('')
 const passwordRef = ref<string>('')
 const verifyPasswordRef = ref<string>('')
 const { toggle, toggleOn, toggleOff } = useToggle()
+const { darkMode } = useTheme()
 
 const signup = [
     {
@@ -95,12 +100,23 @@ const toggleText = computed(() => !toggle.value ? "Already have an account? Logi
 </script>
 
 <template>
-    <main class="w-screen h-screen bg-black flex text-gray-300 justify-center items-center">
-        <section v-if="!toggle" class="w-full max-w-md p-8 rounded-lg">
+    <main :class="[
+        'w-screen h-screen flex justify-center items-center',
+        darkMode ? 'bg-neutral-950 text-gray-300' : 'bg-gray-100 text-gray-900'
+    ]">
+        <section v-if="!toggle" 
+            :class="[
+                'w-full max-w-md p-8 rounded-lg',
+                darkMode ? 'bg-neutral-900' : 'bg-white'
+            ]">
             <h1 class="text-2xl font-semibold mb-8">Create Account</h1>
             <Form :refs="signup" :onSubmit="onSignup" :toggle="toggleOn" :toggleText="toggleText" />
         </section>
-        <section v-else class="w-full max-w-md p-8 rounded-lg">
+        <section v-else 
+            :class="[
+                'w-full max-w-md p-8 rounded-lg',
+                darkMode ? 'bg-neutral-900' : 'bg-white'
+            ]">
             <h1 class="text-2xl font-semibold mb-8">Welcome Back</h1>
             <Form :refs="login" :onSubmit="onLogin" :toggle="toggleOff" :toggleText="toggleText" />
         </section>

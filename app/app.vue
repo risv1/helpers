@@ -1,9 +1,11 @@
 <template>
   <div class="font-satoshi">
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout> 
   </div>
 </template>
 
 <style>
-  @import './app.css';
+@import './app.css';
 </style>
