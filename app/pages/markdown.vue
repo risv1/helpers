@@ -1,4 +1,5 @@
-<script setup>
+<script setup lang="ts">
+// @ts-ignore
 import MarkdownIt from 'markdown-it'
 
 const md = new MarkdownIt()
@@ -20,9 +21,9 @@ This is a live preview of your Markdown input.
 Enjoy writing your Markdown!
 `)
 
+const { darkMode } = useTheme()
 const renderedContent = ref('')
 const errorMessage = ref('')
-const darkMode = ref(true)
 
 function renderMarkdown() {
     try {
@@ -30,12 +31,8 @@ function renderMarkdown() {
         errorMessage.value = ''
     } catch (error) {
         console.error('Error rendering markdown:', error)
-        errorMessage.value = error.message
+        errorMessage.value = (error as any).message
     }
-}
-
-function toggleDarkMode() {
-    darkMode.value = !darkMode.value
 }
 
 onMounted(() => {
@@ -48,15 +45,11 @@ watchEffect(() => {
 </script>
 
 <template>
-    <div
-        :class="['min-h-screen p-6 transition-colors duration-300', darkMode ? 'bg-black text-white' : 'bg-white text-gray-900']">
+    <main :class="['min-h-screen p-6', darkMode ? 'bg-black text-white' : 'bg-gray-100 text-gray-900']">
         <div class="max-w-6xl mx-auto">
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold" :class="darkMode ? 'text-green-400' : 'text-green-600'">Markdown Preview</h1>
-                <button @click="toggleDarkMode" class="p-2 rounded-full">
-                    <Icon name="solar:sun-bold" v-if="darkMode" class="w-6 h-6" />
-                    <Icon name="solar:moon-bold" v-else class="w-6 h-6" />
-                </button>
+                <h1 class="text-3xl font-bold" :class="darkMode ? 'text-green-400' : 'text-green-600'">Markdown Preview
+                </h1>
             </div>
 
             <div v-if="errorMessage"
@@ -67,19 +60,29 @@ watchEffect(() => {
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="h-full">
-                    <h2 class="text-xl font-semibold mb-2" :class="darkMode ? 'text-green-400' : 'text-green-600'">Input</h2>
+                    <h2 class="text-xl font-semibold mb-2" :class="darkMode ? 'text-green-400' : 'text-green-600'">Input
+                    </h2>
                     <textarea v-model="markdownInput"
                         class="w-full focus:outline-none h-[calc(100vh-200px)] p-4 border rounded-lg font-mono resize-none"
                         :class="darkMode ? 'bg-neutral-900 text-white border-gray-700' : 'bg-white text-gray-900 border-gray-300'"
                         placeholder="Enter your Markdown here..."></textarea>
                 </div>
                 <div class="h-full">
-                    <h2 class="text-xl font-semibold mb-2" :class="darkMode ? 'text-green-400' : 'text-green-600'">Preview</h2>
+                    <h2 class="text-xl font-semibold mb-2" :class="darkMode ? 'text-green-400' : 'text-green-600'">
+                        Preview</h2>
                     <div class="border rounded-lg p-6 h-[calc(100vh-200px)] overflow-auto prose max-w-none"
                         :class="darkMode ? 'bg-neutral-900 text-white border-gray-700 prose-invert' : 'bg-white text-gray-900 border-gray-300'"
                         v-html="renderedContent"></div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="w-full flex justify-center py-3">
+            <NuxtLink to="/" :class="[
+                'text-lg font-semibold hover:underline mt-8',
+                darkMode ? 'text-green-300 hover:text-green-200' : 'text-green-600 hover:text-green-700'
+            ]">
+                Back to Home
+            </NuxtLink>
+        </div>
+    </main>
 </template>

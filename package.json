@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@nuxt/icon": "^1.5.6",
-    "@nuxtjs/tailwindcss": "^6.12.1",
     "@tailwindcss/typography": "^0.5.15",
     "argon2": "^0.41.1",
     "autoprefixer": "^10.4.20",
@@ -25,7 +24,9 @@
     "jsonwebtoken": "^9.0.2",
     "markdown-it": "^14.1.0",
     "nuxt": "^3.13.0",
+    "postcss": "^8.4.47",
     "postgres": "^3.4.4",
+    "tailwindcss": "^3.4.14",
     "uuid": "^10.0.0",
     "vue": "latest",
     "vue-router": "latest"
